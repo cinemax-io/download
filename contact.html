@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Cinemax</title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+  /* Simple styling for the toast message */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: green;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+  }
+
+  .toast.show {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+    
+    <!-- Header Section -->
+<header class="header" id="header">
+  <nav class="navbar container">
+    <a href="#" class="brand">
+      <span class="key">C</span>
+      <span class="key">I</span>
+      <span class="key">N</span>
+      <span class="key">E</span>
+      <span class="key">M</span>
+      <span class="key">A</span>
+      <span class="key">X</span>
+    </a>
+    <div class="burger" id="burger">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </div>
+    <div class="menu" id="menu">
+      <ul class="menu-inner">
+        <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
+        <li class="menu-item"><a href="contact.html" class="menu-link">Contact Us</a></li>
+        <li class="menu-item"><a href="about.html" class="menu-link">About Us</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+
+<main class="main">
+  <section class="section-contact">
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, feel free to reach out!</p>
+        <form action="your-server-endpoint" method="POST">
+            <div class="form-group">
+                <label for="name">. : NAME : .</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">. : EMAIL : .</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">. : SUBJECT : .</label>
+                <input type="text" id="subject" name="subject">
+            </div>
+            <div class="form-group">
+                <label for="message">. : MESSAGE : .</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Send Message</button>
+            </div>
+        </form>
+    </div>
+  </section>
+    
+    <div class="footer">&copy;<span id="year"> </span>Cinemax. All rights reserved.</span></div>
+    
+    <script src="script.js"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+      // Check if fields are empty
+      if (!name || !email || !message) {
+        showToast("Please fill in all required fields.", "red");
+        return;
+      }
+
+      // Check if email format is correct
+      if (!emailPattern.test(email)) {
+        showToast("Please enter a valid email address.", "red");
+        return;
+      }
+
+      // If all checks are correct
+      showToast("Your message has been sent!", "green");
+
+      // Clear all form fields
+      form.reset();
+    });
+
+    // Function to show toast message with customizable color
+    function showToast(message, color) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerText = message;
+      toast.style.backgroundColor = color;
+      document.body.appendChild(toast);
+
+      // Show and then hide toast
+      setTimeout(() => {
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.remove();
+        }, 3000);
+      }, 100);
+    }
+  });
+</script>
+</body>
+</html>
